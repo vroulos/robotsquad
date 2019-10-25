@@ -12,27 +12,41 @@
 		<input type="number" name="border"><br>
 		<label>insert the orientation of the robot (N , W, S, E)</label><br>
 		<input type="text" name="orientation"><br>
+		<label>insert the x starting potision of the robot</label><br>
+		<input type="text" name="startX"><br>
+		<label>insert the y starting potision of the robot</label><br>
+		<input type="text" name="startY"><br>
 		<input type="submit" value="Submit"><br>
 	</form>
 
 <?php 
 	if (isset($_POST["instructions"])) {
 		$instruction = $_POST["instructions"];
-		echo $instruction."<br>";
+		//echo $instruction."<br>";
 	}
 	if (isset($_POST["border"])) {
 		$border = $_POST["border"];
-		echo $border."<br>";
+		//echo $border."<br>";
 	}
 	if (isset($_POST["orientation"])) {
 		$orientation = $_POST["orientation"];
 		echo $orientation."<br>";
 	}
+	if (isset($_POST["startX"])) {
+		$startX = $_POST["startX"];
+		//echo $startX;
+	}
+	if (isset($_POST["startY"])) {
+		$startY = $_POST["startY"];
+		
+	}
+
 
 	
 	//echo $instructions;
-	getUpperRight(10,11);
+	//getUpperRight(10,11);
 	setTheMovement($instruction, $border , $border, $orientation);
+	printInput($border, $startX, $startY, $instruction, $orientation);
 
 	function setTheMovement($instructions ,$x , $y,$compass){
 		$xborder = $x;
@@ -122,16 +136,25 @@
 		
 			//print 
 			
-				echo $x ." ".$y." ".$compass."</br>";
+				//echo $x ." ".$y." ".$compass."</br>";
 				
 			
 		}		
-		
+		echo "OUTPUT"."<br>";
+		echo $x."".$y." ".$compass."<br><br>";
+
 	}
 
-	function getUpperRight($x, $y){
-		echo $x.' '.$y."</br>";
-	} 
+	function printInput($border, $startX, $startY, $instruction, $orientation){
+		echo "INPUT"."<br>";
+		echo $border." ".$border."<br>";
+		echo $startX." ".$startY." ".$orientation."<br>";
+		echo $instruction."<br>";
+	}
+
+	function printOutput(){
+
+	}
 ?>
 
 </body>
