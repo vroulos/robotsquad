@@ -5,7 +5,7 @@
 </head>
 <body>
 
-	<form name="myform" action="" method="post">
+<!-- 	<form name="myform" action="" method="post">
 		<label>insert the movement. Insert only M for move , R L for turn</label><br>
 		<input type="text" name="instructions"><br>
 		<label>insert x border . Number >0</label><br>
@@ -17,9 +17,13 @@
 		<label>insert the y starting potision of the robot</label><br>
 		<input type="text" name="startY"><br>
 		<input type="submit" value="Submit"><br>
-	</form>
+	</form> -->
 
-<?php 
+
+
+<?php
+	
+
 	if (isset($_POST["instructions"])) {
 		$instruction = $_POST["instructions"];
 		//echo $instruction."<br>";
@@ -41,17 +45,57 @@
 		
 	}
 
+	/**
+	 * 
+	 */
+	/**
+	 * 
+	 */
+	class Map 
+	{
+		public static $borderX;
+		public static $borderY;
+		
+		function __construct()
+		{
+			
+		}
+		 public static function init() {
+    	self::$borderX= 10;
+    	self::$borderY = 10;
+    }
+	}
 
-	
-	//echo $instructions;
-	//getUpperRight(10,11);
-	setTheMovement($instruction, $border , $border, $orientation);
-	printInput($border, $startX, $startY, $instruction, $orientation);
+	class Robot
+	{
+		public $x;
+		public $y;
+		public $orientation;
+		public $instructions;
+		public $name;
+		
+		function __construct($name, $positionX, $positionY, $orientation)
+		{
+			$this->name = $name;
+			$this->x = $positionX;
+			$this->y = $positionY;
+			$this->orientation = $orientation;
+			$instructions = null;
+		}
 
-	function setTheMovement($instructions ,$x , $y,$compass){
-		$xborder = $x;
-		$yborder = $y;
+		function move($instructions){
 
+		
+		$x = $this->x;
+		$y = $this->y;
+		//get the borders from Map class as have set there as static variables
+		$yborder = Map::$borderY;
+		$xborder = Map::$borderX;
+		//set the starting orientation of the robot
+		$compass = $this->orientation;
+		//put the instruction to this robot
+		$this->instructions = $instructions;
+		//str_split — Convert a string to an array
 		$arrayinstructions = str_split($instructions);
 		$i = 0;
 		foreach ($arrayinstructions as  $value) {
@@ -99,6 +143,7 @@
 			}
 			//move the robot
 			if ($value == 'M') {
+
 				switch ($compass) {
 				case 'N':
 					//check if the robot is in the map
@@ -116,13 +161,13 @@
 				case  'S':
 				if ($y>0) {
 					$y = $y-1;
-				}
+					}
 					break;
 				case 'E':
 					//check if the robots is in the map
 					if ($x<$xborder) {
 						$x = $x+1;
-					}
+						}
 					
 					break;			
 				
@@ -136,25 +181,47 @@
 		
 			//print 
 			
-				//echo $x ." ".$y." ".$compass."</br>";
+				//echo $x ." ".$y."   ".$compass.   "</br>    ";
 				
 			
-		}		
+		}
+
 		echo "OUTPUT"."<br>";
-		echo $x."".$y." ".$compass."<br><br>";
+		
+		
+		echo $x." ".$y." ".$compass."<br><br>";
+		
+		
 
 	}
 
-	function printInput($border, $startX, $startY, $instruction, $orientation){
-		echo "INPUT"."<br>";
-		echo $border." ".$border."<br>";
-		echo $startX." ".$startY." ".$orientation."<br>";
-		echo $instruction."<br>";
+
+
+	function printInput(){
+		echo "INPUT ".$this->name."<br>";
+		echo $this->x." ".$this->y." ".$this->orientation."<br>";
+		//echo $startX." ".$startY." ".$orientation."<br>";
+		echo $this->instructions."<br><br>";
 	}
 
-	function printOutput(){
+
 
 	}
+
+	Map::init();
+	$robot1 = new Robot('robot1', 16,16,'N');
+	$robot1->move('LMRMMLMMMLMMRLLLMMMMR');
+	$robot1->printInput();
+	
+
+	$robot2 = new Robot('robot2', 16,16 ,'N');
+	$robot2->move('LLMLMLMMRRLMRLRMRLMRMRLRMRLRMRLRMRLMRLMRRMLRMRMLMR');
+	$robot2->printInput();
+	
+	//setTheMovement($instruction, $border , $border, $orientation);
+	//printInput($border, $startX, $startY, $instruction, $orientation);
+
+	
 ?>
 
 </body>
