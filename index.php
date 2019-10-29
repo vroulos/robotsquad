@@ -90,6 +90,9 @@
 			$this->y = $positionY;
 			$this->orientation = $orientation;
 			$instructions = null;
+			$currentPositionX = null;
+			$currentPositionY = null;
+			$finalOrientation = null;
 		}
 
 
@@ -186,8 +189,17 @@
 				}
 			}
 
+			$this->currentPositionX = $x;
+			$this->currentPositionY = $y;
+			$this->finalOrientation = $compass;
+
+			
+			//echo $x." ".$y." ".$compass."<br><br>";
+		}
+
+		function printOutput(){
 			echo "OUTPUT"."<br>";
-			echo $x." ".$y." ".$compass."<br><br>";
+			echo $this->currentPositionX." ".$this->currentPositionY." ".$this->finalOrientation."<br><br>";
 		}
 
 		function printInput(){
@@ -205,10 +217,12 @@
 	$robot1->move('LMRMMLMMMLMMRLLLMMMMRMMRMMMMMMMM');
 	//print the output
 	$robot1->printInput();
+	$robot1->printOutput();
 	
 	$robot2 = new Robot('robot2', 16,16 ,'N');
 	$robot2->move('LLMLMLMMRRLMRLRMRMRMRLRMRLRMRMRLMRLMRRMLRMRMLMRMMMMMLMMMMMMMRRMMMM');
 	$robot2->printInput();
+	$robot2->printOutput();
 	?>
 
 </body>
